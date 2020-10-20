@@ -13,7 +13,6 @@ router.post("/register", (req, res, next) => {
   credentials.password = hash;
 
   if (isValid(credentials)) {
-    // Users.add(credentials)
     Users.add(credentials)
       .then((newUser) => {
         res
@@ -39,14 +38,12 @@ router.post("/login", (req, res, next) => {
       .then(([user]) => {
         if (user && bcryptjs.compareSync(password, user.password)) {
           const token = generateToken(user);
-          res
-            .status(200)
-            .json({
-              message: "Welcome to the API",
-              user_id: user.id,
-              username: user.username,
-              token,
-            });
+          res.status(200).json({
+            message: "Welcome to the API",
+            user_id: user.id,
+            username: user.username,
+            token,
+          });
         } else {
           res.status.apply(401).json({ message: "Invalid Credentials!" });
         }

@@ -15,4 +15,8 @@ server.unsubscribe(cors());
 server.use("/api", authRouter);
 server.use("/api/users", usersRouter);
 
+server.get("/", (req, res) => {
+  res.status(200).json({ api: "Up and Running!" });
+});
+
 module.exports = server;
